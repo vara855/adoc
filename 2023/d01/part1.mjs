@@ -4,18 +4,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const wordDigits = [
-  "one",
-  "two",
-  "three",
-  "four",
-  "five",
-  "six",
-  "seven",
-  "eight",
-  "nine",
-];
-function isValidNum(n) {
+function isValidDigit(n) {
   return !isNaN(+n) && isFinite(n);
 }
 
@@ -30,8 +19,8 @@ export function solveFirstPart(fileName) {
   const answer = lines.reduce((acc, line) => {
     let num;
     const letters = line.split("");
-    let fst = letters.find((letter) => isValidNum(letter));
-    let lst = letters.findLast((letter) => isValidNum(letter));
+    let fst = letters.find((letter) => isValidDigit(letter));
+    let lst = letters.findLast((letter) => isValidDigit(letter));
     num = +`${fst}${lst}`;
 
     acc += num;
