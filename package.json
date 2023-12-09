@@ -1,0 +1,18 @@
+{
+  "name": "adoc",
+  "version": "1.0.0",
+  "description": "ADvent of Code 2023",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "workspaces": [
+    "./2023/*"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.10.4"
+  }
+}
