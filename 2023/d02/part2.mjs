@@ -5,12 +5,6 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // ---
 
-const limits = {
-  red: 12,
-  green: 13,
-  blue: 14,
-};
-
 /**
  * @param {string} setsString
  */
