@@ -39,7 +39,6 @@ function parseAlmanac(fileContent) {
         .split(' ')
         .filter(it => it.trim())
         .map(it => +it.trim());
-    console.log('sections :>> ', sections);
 
     return {
         seeds,

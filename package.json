@@ -1,21 +1,21 @@
 {
-  "name": "adoc",
-  "version": "1.0.0",
-  "description": "ADvent of Code 2023",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "MIT",
-  "workspaces": [
-    "./2023/*"
-  ],
-  "devDependencies": {
-    "@types/node": "^20.10.4",
-    "eslint": "^8.56.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^16.4.0"
-  }
+    "name": "adoc",
+    "version": "1.0.0",
+    "description": "ADvent of Code 2023",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "node --test"
+    },
+    "author": "",
+    "license": "MIT",
+    "workspaces": [
+        "./2023/*"
+    ],
+    "devDependencies": {
+        "@types/node": "^20.10.4",
+        "eslint": "^8.56.0",
+        "eslint-plugin-import": "^2.29.1",
+        "eslint-plugin-n": "^16.4.0"
+    }
 }
