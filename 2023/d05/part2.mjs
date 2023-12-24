@@ -7,24 +7,38 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // What is the lowest location number that corresponds to any of the initial seed numbers?
 export function solveSecondPart(input = 'part1-example.txt') {
     const fileContent = fs.readFileSync(path.resolve(__dirname, input), 'utf8');
-    const { maps, seeds } = parseAlmanac(fileContent);
+    const { maps, ranges: seedRanges } = parseAlmanac(fileContent);
 
-    const result = seeds.map(seed => {
-        return maps.reduce((coord, map) => {
-            const _coord = processMap(map, coord);
-            return _coord;
-        }, seed);
-    });
-    return Math.min(...result);
+    const results = maps.reduce((ranges, mappings) => {
+        const result = ranges.flatMap(range => {
+            return processMap(mappings, range);
+        });
+        return [...new Set(result)];
+    }, seedRanges);
+
+    const answer = Math.min(...results.map(it => it[0]));
+    return answer;
 }
 
-function processMap(mappings, seed) {
-    for (let { source, dest, length } of mappings) {
-        if (seed >= source && seed < source + length) {
-            return dest + (seed - source);
+/**
+ *
+ * @param {{source, dest, length}[]} mappings
+ * @param {number[]} seedRange
+ * @returns
+ */
+function processMap(mappings, seedRange) {
+    const result = mappings.flatMap(mapping => {
+        const sourceRange = [mapping.source, mapping.source + mapping.length - 1];
+        const minLeft = Math.max(sourceRange[0], seedRange[0]);
+        const minRight = Math.min(sourceRange[1], seedRange[1]);
+        if (minLeft < minRight) {
+            const diff = mapping.dest - sourceRange[0];
+            return [[minLeft + diff, minRight + diff]];
         }
-    }
-    return seed;
+
+        return [];
+    });
+    return result.length ? result : [seedRange];
 }
 
 /**
@@ -39,10 +53,14 @@ function parseAlmanac(fileContent) {
         .split(' ')
         .filter(it => it.trim())
         .map(it => +it.trim());
-    console.log('sections :>> ', sections);
-
+    const ranges = [];
+    while (seeds.length > 0) {
+        const [start, steps] = seeds.splice(0, 2);
+        // [from, to]
+        ranges.push([start, start + steps - 1]);
+    }
     return {
-        seeds,
+        ranges: ranges,
         maps: sections.map(it => {
             const mapping = it.split('\n');
             mapping.shift();
